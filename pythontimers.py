@@ -3,7 +3,7 @@
 """
 Created on Sun Mar 28 23:25:40 2021
 
-@author: Douglas Drodocimo (github.com/dopro17)
+@author: Douglas Prodocimo (github.com/dopro17)
 """
 
 """
