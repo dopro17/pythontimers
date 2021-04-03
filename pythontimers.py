@@ -12,7 +12,7 @@ more tha one instances. Non blocking, uses a thread to call the callback
 function.
 """
 
-class SoftTimer:
+class Timer:
     """Retruns a softtimer object"""
     def __init__(self, period, callback, *args):
         import _thread
@@ -23,8 +23,7 @@ class SoftTimer:
         self.thr = None
         self.kill = _thread.allocate_lock()
 
-    def loop(self):
-        """Internal loop do not use it!"""
+    def __loop(self):
         from time import clock_gettime
         from time import sleep
 
@@ -42,7 +41,9 @@ class SoftTimer:
             delta_t = t_now - t_last
             sleep_t = 2*period - delta_t
             callback(*args)
-
+            if sleep_t < 0:
+                print("Timer overflow")
+                sleep_t = 0
             sleep(sleep_t)
             t_last = t_now
             if kill.locked():
@@ -52,7 +53,7 @@ class SoftTimer:
         """To start soft timer object."""
         import threading
 
-        self.thr = threading.Thread(target=self.loop)
+        self.thr = threading.Thread(target=self.__loop)
         self.thr.start()
 
     def stop(self):
