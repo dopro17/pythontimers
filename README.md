@@ -7,7 +7,7 @@ Timers object to simulate hardware timer function of executing cyclic functions 
 >>from pythontimers import SoftTimer
 
 >>def myfunction(message, value):
->>    print("The message is %s, with value of %d." % (message, value)
+>>    print("The message is %s, with value of %d." % (message, value))
     
 >>timer0 = SoftTimer(0.1, myfunction, "my args", 1)
 
